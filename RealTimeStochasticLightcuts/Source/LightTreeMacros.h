@@ -1,7 +1,5 @@
 #pragma once
 
-//#define VIDEO_CAPTURE
-
 //#define CPU_BUILDER
 
 #ifdef CPU_BUILDER

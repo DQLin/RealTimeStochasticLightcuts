@@ -25,7 +25,9 @@ The Remastered Amazon Lumberyard Bistro scene
 * Windows 10 build 18362 or above
 * Visual Studio 2019 (for compilation) with Windows 10 SDK version >= 18362
 * DXR compatible graphics card, NVIDIA GeForce RTX 2060 or higher is recommended
-* NVIDIA GeForce Game Ready driver version 446.14 or above (performance may vary with the driver version)
+* NVIDIA GeForce Game Ready driver version 446.14 is highly recommended to get the best performance, for unknown reasons newer driver versions (451.48 and 451.67) cause the frame rate to slow down by up to 40%.
+
+ or above (performance may vary with the driver version)
 
 ## Libraries Used
 * ZLib
