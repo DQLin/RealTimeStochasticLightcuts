@@ -8,8 +8,8 @@ of the paper can be found at
 
 An additional feature in the demo is ray traced glossy reflection, which is produced by sampling the glossy BSDF, intersecting rays with emissive objects, and denoising the result by SVGF [Schied et al. 2017]. Motion vectors of imaginary positions of reflected objects are used for temporal reprojection.
 
-Note that the two large demo scenes, Zero Day and Amazon Lumberyard Bistro, are stored in the [RealTimeStochasticLightcuts_LargeModels](https://github.com/DQLin/RealTimeStochasticLightcuts_LargeModels) submodule.
-If you want to test those two scenes, you need to download them separately or use recursive clone (git clone --recursive https://github.com/DQLin/RealTimeStochasticLightcuts/).
+Note that the two large demo scenes, Zero Day and Amazon Lumberyard Bistro, are stored in the [RealTimeStochasticLightcuts_LargeModels](https://github.com/DQLin/RealTimeStochasticLightcuts_LargeModels) submodule (Don't directly download from GitHub, because the repository contains LFS files).
+If you want to test those two scenes, you need to use the recursive clone (git clone --recursive https://github.com/DQLin/RealTimeStochasticLightcuts/) or fetch the submodule by running "git submodule update --init --recursive" if you already cloned the repository without the submodule.
 
 This demo is built upon [MiniEngine](https://github.com/microsoft/DirectX-Graphics-Samples/tree/master/MiniEngine) by Team Minigraph at Microsoft.
 
