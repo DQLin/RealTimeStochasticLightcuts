@@ -1,0 +1,21 @@
+<!--This is an example file of all available arguments you can specify in this file-->
+<!--Change model path to your file and use appropriate camera position to view your model in LGHDemo-->
+<!--This xml file should be provided as an argument to the program, like "LGHDemo.exe SceneDescription.xml"-->
+<scenedescription type="meshlight">
+<camera>
+  <position x="0" y="0" z="0"/>
+  <forward x="-1 " y="0" z="0"/>
+  <up x="0" y="1" z="0"/>
+  <fov value="45"/>
+  <width value="1920"/>
+  <height value="1080"/>
+  <near value="0.1"/>
+  <far value="10000"/>
+  <exposure value="128.0"/>
+  <movescale value="0.5"/>
+  <panscale value="0.5"/>  
+  <animate value="true"/>
+</camera>
+<model path="../RealTimeStochasticLightcuts_LargeModels/ZeroDay_v1/MEASURE_SEVEN/MEASURE_SEVEN_COLORED_LIGHTS.fbx">
+</model>
+</scenedescription>

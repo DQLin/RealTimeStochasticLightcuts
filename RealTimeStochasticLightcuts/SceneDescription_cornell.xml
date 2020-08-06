@@ -1,0 +1,186 @@
+<!--This is an example file of all available arguments you can specify in this file-->
+<!--Change model path to your file and use appropriate camera position to view your model in LGHDemo-->
+<!--This xml file should be provided as an argument to the program, like "LGHDemo.exe SceneDescription.xml"-->
+<scenedescription>
+<camera>
+  <position x="0.053504" y="1.123398" z="1.666188"/>
+  <forward x="-0.016161 " y="-0.079230" z="-0.996725"/>
+  <up x="-0.001284" y="0.996856" z="-0.079219"/>
+  <fov value="70"/>
+  <width value="1920"/>
+  <height value="1080"/>
+  <near value="0.1"/>
+  <far value="100"/>
+  <exposure value="4.0"/>
+  <movescale value="2.0"/>
+  <panscale value="1.0"/>
+</camera>
+
+<animation>
+
+<!--a + b*sin(ct+d) -->
+<meshid value='0'>
+<translate>
+<x a = "0" b = "0.2" c = "-1" d = "0"/> 
+</translate>
+</meshid>
+
+<meshid value='1'>
+<translate>
+<y a = "0" b = "0.1" c = "1" d = "0"/>
+</translate>
+</meshid>
+
+<meshid value='14'>
+<translate>
+<z a = "0" b = "0.2" c = "1" d = "0"/>
+</translate>
+</meshid>
+
+<meshid value='16'>
+<translate>
+<x a = "0" b = "0.1" c = "1" d = "0"/>
+</translate>
+</meshid>
+
+<meshid value='17'>
+<translate>
+<y a = "0.3" b = "-0.3" c = "1" d = "0"/>
+</translate>
+</meshid>
+
+<!-- rotate around axis with angle phase + w * t -->
+
+<meshid value='2'>
+<translate>
+<x a = "-0.279323" b = "0" c = "0" d = "0"/>
+<y a = "0.798223" b = "0" c = "0" d = "0"/>
+<z a = "-0.126096" b = "0" c = "0" d = "0"/>
+</translate>
+<rotate>
+<axis x = "0" y = "1" z = "0"/>
+<phase value = "0"/>
+<w value = "1"/>
+</rotate>
+<translate>
+<x a = "0.279323" b = "0" c = "0" d = "0"/>
+<y a = "-0.798223" b = "0" c = "0" d = "0"/>
+<z a = "0.126096" b = "0" c = "0" d = "0"/>
+</translate>
+</meshid>
+
+<meshid value='9'>
+<translate>
+<x a = "0.586440" b = "0" c = "0" d = "0"/>
+<y a = "0.826444" b = "0" c = "0" d = "0"/>
+<z a = "-0.116615" b = "0" c = "0" d = "0"/>
+</translate>
+<rotate>
+<axis x = "0" y = "1" z = "0"/>
+<phase value = "0"/>
+<w value = "1"/>
+</rotate>
+<translate>
+<x a = "-0.586440" b = "0" c = "0" d = "0"/>
+<y a = "-0.826444" b = "0" c = "0" d = "0"/>
+<z a = "0.116615" b = "0" c = "0" d = "0"/>
+</translate>
+</meshid>
+
+<meshid value='10'>
+<translate>
+<x a = "0.341601 " b = "0" c = "0" d = "0"/>
+<y a = "0.749027" b = "0" c = "0" d = "0"/>
+<z a = "0.544116" b = "0" c = "0" d = "0"/>
+</translate>
+<rotate>
+<axis x = "0" y = "1" z = "0"/>
+<phase value = "0"/>
+<w value = "1"/>
+</rotate>
+<translate>
+<x a = "-0.341601 " b = "0" c = "0" d = "0"/>
+<y a = "-0.749027" b = "0" c = "0" d = "0"/>
+<z a = "-0.544116" b = "0" c = "0" d = "0"/>
+</translate>
+</meshid>
+
+<meshid value='11'>
+<translate>
+<x a = "-0.442639" b = "0" c = "0" d = "0"/>
+<y a = "0.837427" b = "0" c = "0" d = "0"/>
+<z a = "0.633245" b = "0" c = "0" d = "0"/>
+</translate>
+<rotate>
+<axis x = "0" y = "1" z = "0"/>
+<phase value = "0"/>
+<w value = "1"/>
+</rotate>
+<translate>
+<x a = "0.442639" b = "0" c = "0" d = "0"/>
+<y a = "-0.837427" b = "0" c = "0" d = "0"/>
+<z a = "-0.633245" b = "0" c = "0" d = "0"/>
+</translate>
+</meshid>
+
+
+<meshid value='12'>
+<translate>
+<x a = "0.563293" b = "0" c = "0" d = "0"/>
+<y a = "1.442371" b = "0" c = "0" d = "0"/>
+<z a = "0.742061" b = "0" c = "0" d = "0"/>
+</translate>
+<rotate>
+<axis x = "0" y = "1" z = "0"/>
+<phase value = "0"/>
+<w value = "1"/>
+</rotate>
+<translate>
+<x a = "-0.563293" b = "0" c = "0" d = "0"/>
+<y a = "-1.442371" b = "0" c = "0" d = "0"/>
+<z a = "-0.742061" b = "0" c = "0" d = "0"/>
+</translate>
+</meshid>
+
+<meshid value='13'>
+<translate>
+<x a = "0.161279" b = "0" c = "0" d = "0"/>
+<y a = "1.482103" b = "0" c = "0" d = "0"/>
+<z a = "0.122947" b = "0" c = "0" d = "0"/>
+</translate>
+<rotate>
+<axis x = "0" y = "1" z = "0"/>
+<phase value = "0"/>
+<w value = "1"/>
+</rotate>
+<translate>
+<x a = "-0.161279" b = "0" c = "0" d = "0"/>
+<y a = "-1.482103" b = "0" c = "0" d = "0"/>
+<z a = "-0.122947" b = "0" c = "0" d = "0"/>
+</translate>
+</meshid>
+
+<meshid value='15'>
+<translate>
+<x a = "0.534874 " b = "0" c = "0" d = "0"/>
+<y a = "0.210360" b = "0" c = "0" d = "0"/>
+<z a = "-0.081287" b = "0" c = "0" d = "0"/>
+</translate>
+<rotate>
+<axis x = "0" y = "1" z = "0"/>
+<phase value = "0"/>
+<w value = "1"/>
+</rotate>
+<translate>
+<x a = "-0.534874 " b = "0" c = "0" d = "0"/>
+<y a = "-0.210360" b = "0" c = "0" d = "0"/>
+<z a = "0.081287" b = "0" c = "0" d = "0"/>
+</translate>
+</meshid>
+
+</animation>
+
+
+<model path="Models/Cornell/cornell.obj">
+</model>
+</scenedescription>

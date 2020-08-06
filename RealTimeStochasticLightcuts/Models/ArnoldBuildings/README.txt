@@ -1,0 +1,1 @@
+The OBJ file is converted from the maya file "mesh-light.ma" downloaded from here (https://docs.arnoldrenderer.com/display/A5AFMUG/Learning+Scenes?preview=/71009630/71009540/mesh-light_maya.zip)

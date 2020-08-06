@@ -1,0 +1,9 @@
+newmtl aiStandard4SG
+illum 4
+Kd 0.80 0.80 0.80
+Ka 0.00 0.00 0.00
+newmtl aiStandard9SG
+illum 4
+Kd 0.80 0.80 0.80
+Ka 0.00 0.00 0.00
+Ke 4.00 4.00 4.00

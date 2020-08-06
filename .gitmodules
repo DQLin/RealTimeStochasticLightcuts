@@ -1,0 +1,3 @@
+[submodule "RealTimeStochasticLightcuts_LargeModels"]
+	path = RealTimeStochasticLightcuts_LargeModels
+	url = https://github.com/DQLin/RealTimeStochasticLightcuts_LargeModels

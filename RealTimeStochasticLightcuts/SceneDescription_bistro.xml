@@ -1,0 +1,20 @@
+<!--This is an example file of all available arguments you can specify in this file-->
+<!--Change model path to your file and use appropriate camera position to view your model in LGHDemo-->
+<!--This xml file should be provided as an argument to the program, like "LGHDemo.exe SceneDescription.xml"-->
+<scenedescription>
+<camera>
+  <position x="-530.451721" y="514.192566" z="575.651367"/>
+  <forward x="0.611531" y="-0.281216" z="-0.739559"/>
+  <up x="0.179204" y="0.959645" z="-0.216721"/>
+  <fov value="50"/>
+  <width value="1920"/>
+  <height value="1080"/>
+  <near value="1"/>
+  <far value="10000"/>
+  <exposure value="24.0"/>
+  <movescale value="0.5"/>
+  <panscale value="1.0"/>
+</camera>
+<model path="../RealTimeStochasticLightcuts_LargeModels/bistro/obj/exterior.obj">
+</model>
+</scenedescription>
