@@ -8,7 +8,7 @@ of the paper can be found at
 
 An additional feature in the demo is ray traced glossy reflection, which is produced by sampling the glossy BSDF, intersecting rays with emissive objects, and denoising the result by SVGF [Schied et al. 2017]. Motion vectors of imaginary positions of reflected objects are used for temporal reprojection.
 
-Note that the two large demo scenes, Zero Day and Amazon Lumberyard Bistro, are stored in the [RealTimeStochasticLightcuts_LargeModels](https://github.com/DQLin/RealTimeStochasticLightcuts_LargeModels) submodule (Don't directly download from GitHub, because the repository contains LFS files).
+Note that the two large demo scenes, Zero Day and Amazon Lumberyard Bistro, are stored in the Bitbucket repository [RealTimeStochasticLightcuts_LargeModels](https://bitbucket.org/daqi_lin/realtimestochasticlightcuts_largefiles) submodule.
 If you want to test those two scenes, you need to use the recursive clone (git clone --recursive https://github.com/DQLin/RealTimeStochasticLightcuts/) or fetch the submodule by running "git submodule update --init --recursive" if you already cloned the repository without the submodule.
 
 This demo is built upon [MiniEngine](https://github.com/microsoft/DirectX-Graphics-Samples/tree/master/MiniEngine) by Team Minigraph at Microsoft.
@@ -83,7 +83,7 @@ A model file must be provided through the "path" attribute of the "model" tag. S
 
 ## Demo Scenes
 
-Five scenes are included with the demo. The FBX version of BEEPLE Zero-Day released by NVIDIA ("SceneDescription_zeroday.xml"), The remastered Exterior part of Amazon Lumberyard Bistro from McGuire Computer Graphics Archive ("SceneDescription_bistro.xml"), the "Arnold buildilng" scene exported from a mesh light scene in Arnold renderer Maya tutorial ("SceneDescription_arnoldbuildings.xml"), the default Crytek Sponza scene in the MinigEnigine ("SceneDescription_sponza.xml"), and the modified Cornell Box scene with Blender sample models inside ("SceneDescription_cornell.xml").
+Five scenes are included with the demo. The FBX version of BEEPLE Zero-Day released by NVIDIA Open Research Content Archive (ORCA) ("SceneDescription_zeroday.xml"), The exterior part of Amazon Lumberyard Bistro also from OCRA (ported to OBJ by [Morgan McGuire](https://casual-effects.com/data/)) ("SceneDescription_bistro.xml"), the "Arnold buildilng" scene exported from a mesh light scene in Arnold renderer Maya tutorial ("SceneDescription_arnoldbuildings.xml"), the default Crytek Sponza scene in the MinigEnigine ("SceneDescription_sponza.xml"), and the modified Cornell Box scene with Blender sample models inside ("SceneDescription_cornell.xml").
 
 ## Demo Settings
 
