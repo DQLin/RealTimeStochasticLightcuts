@@ -48,6 +48,9 @@ void RayGen()
 
 	float3 alpha = SunColor / pdf;
 
+	// count number of paths
+	g_vplNormals.IncrementCounter();
+
 	RayDesc rayDesc = { origin,
 		0.0f,
 		SunDirection,

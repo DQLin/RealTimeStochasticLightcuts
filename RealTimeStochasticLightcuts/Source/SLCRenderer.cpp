@@ -485,19 +485,17 @@ void SLCRenderer::Initialize(Model1* model, int numModels, int scrWidth, int scr
 
 void SLCRenderer::BuildMeshLightTree(GraphicsContext& context, const ViewConfig& viewConfig, int frameId, bool hasSceneChange, bool hasMeshLightChange)
 {
-	bool isFirstTime = mMeshLightTreeBuilder.isFirstTime;
-	bool isReinit = false;
+	bool needReinit = mMeshLightTreeBuilder.isFirstTime;
 
 	if (m_OneLevelSLC != lastIsOneLevelSLC)
 	{
-		isFirstTime = true; 
-		isReinit = true;
+		needReinit = true;
 		mMeshLightTreeBuilder.haveUpdated[0] = false;
 		mMeshLightTreeBuilder.haveUpdated[1] = false;
 		lastIsOneLevelSLC = m_OneLevelSLC;
 	}
 
-	if (isFirstTime && !isReinit)
+	if (mMeshLightTreeBuilder.isFirstTime)
 	{
 		hasSceneChange = false;
 		hasMeshLightChange = false;
@@ -505,9 +503,9 @@ void SLCRenderer::BuildMeshLightTree(GraphicsContext& context, const ViewConfig&
 
 	if (hasSceneChange) vplManager.UpdateAccelerationStructure();
 
-	bool rebuildRequested = hasMeshLightChange || isFirstTime;
+	bool rebuildRequested = hasMeshLightChange || needReinit;
 
-	if (isFirstTime) mMeshLightTreeBuilder.Init(context.GetComputeContext(), m_Model, 1, isReinit, m_OneLevelSLC);
+	if (needReinit) mMeshLightTreeBuilder.Init(context.GetComputeContext(), m_Model, 1, m_OneLevelSLC);
 
 	if (rebuildRequested)
 	{
@@ -534,7 +532,6 @@ void SLCRenderer::BuildVPLLightTree(GraphicsContext& context, Vector3 lightDirec
 {
 	bool rebuildRequested = false;
 	if (hasSceneChange) vplManager.UpdateAccelerationStructure();
-	bool isFirstTime = vplManager.numFramesUpdated == -1;
 
 	bool hasRequiredVPLsChange = m_VPLEmissionLevel != lastVPLEmissionLevel || m_MaxDepth != lastMaxDepth;
 
@@ -550,7 +547,7 @@ void SLCRenderer::BuildVPLLightTree(GraphicsContext& context, Vector3 lightDirec
 
 	rebuildRequested = vplManager.GenerateVPLs(context, m_VPLEmissionLevel, lightDirection, lightIntensity, frameId, m_MaxDepth, hasSceneChange || hasRequiredVPLsChange);
 
-	bool isReinit = false;
+	bool needReinit = mVPLLightTreeBuilder.isFirstTime;
 	if (hasRequiredVPLsChange)
 	{
 		lastVPLEmissionLevel = m_VPLEmissionLevel;
@@ -559,21 +556,19 @@ void SLCRenderer::BuildVPLLightTree(GraphicsContext& context, Vector3 lightDirec
 		int newNumLevels = mVPLLightTreeBuilder.CalculateTreeLevels(vplManager.numVPLs);
 
 #ifdef CPU_BUILDER
-		if (!isFirstTime && vplManager.numVPLs > 2 * mVPLLightTreeBuilder.numVPLs) // storage not enough, reinit
+		if (!mVPLLightTreeBuilder.isFirstTime && vplManager.numVPLs > 2 * mVPLLightTreeBuilder.numVPLs) // storage not enough, reinit
 		{
-			isFirstTime = true;
-			isReinit = true;
+			needReinit = true;
 		}
 #endif
 
 		if (newNumLevels != mVPLLightTreeBuilder.numTreeLevels)
 		{
-			isFirstTime = true;
-			isReinit = true;
+			needReinit = true;
 		}
 	}
 
-	if (isFirstTime) mVPLLightTreeBuilder.Init(context.GetComputeContext(), vplManager.numVPLs, vplManager.VPLBuffers, 1024, isReinit);
+	if (needReinit) mVPLLightTreeBuilder.Init(context.GetComputeContext(), vplManager.numVPLs, vplManager.VPLBuffers, 1024);
 	else mVPLLightTreeBuilder.numVPLs = vplManager.numVPLs;
 
 	if (rebuildRequested)

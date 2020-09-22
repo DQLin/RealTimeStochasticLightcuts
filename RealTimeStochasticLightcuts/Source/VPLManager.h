@@ -62,10 +62,10 @@ public:
 	UINT numVPLs, numPaths;
 	std::vector<StructuredBuffer> VPLBuffers;
 	unsigned maxRayRecursion;
-	int numFramesUpdated;
+	bool needRegenerateVPLs;
 	Vector4 sceneBoundingSphere;
 
-	void Initialize(Model1* _model, int numModels, int _maxUpdateFrames = 1, int _maxRayRecursion = 30);
+	void Initialize(Model1* _model, int numModels, int _maxRayRecursion = 30);
 	bool GenerateVPLs(GraphicsContext & context, float VPLEmissionLevel, const Vector3& lightDirection, float lightIntensity, int frameId, int maxDepth = 3, bool hasRegenRequest=false);
 
 	void InitializeGBufferSrvs();
@@ -152,8 +152,6 @@ private:
 
 	RaytracingDispatchRayInputs m_RaytracingInputs[NumRaytracingTypes];
 	StructuredBuffer    m_hitShaderMeshInfoBuffer;
-
-	int maxUpdateFrames;
 
 	Vector3 lastLightDirection;
 	float lastLightIntensity;

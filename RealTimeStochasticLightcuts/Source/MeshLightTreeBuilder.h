@@ -36,14 +36,14 @@ class MeshLightTreeBuilder
 {
 public:
 
-	MeshLightTreeBuilder() { isFirstTime = true; };
+	MeshLightTreeBuilder() {};
 
 	inline int CalculateTreeLevels(int numVPLs)
 	{
 		return int(ceil(log2(numVPLs))) + 1;
 	}
 
-	void Init(ComputeContext& cptContext, Model1* model, int numModels = 1, bool isReinit = false, bool oneLevelTree = false);
+	void Init(ComputeContext& cptContext, Model1* model, int numModels = 1, bool oneLevelTree = false);
 
 	void Build(ComputeContext & cptContext, int frameId);
 
@@ -105,7 +105,7 @@ public:
 
 	StructuredBuffer m_BLASInstanceHeaders;
 
-	bool isFirstTime;
+	bool isFirstTime = true;
 	StructuredBuffer m_meshLightGlobalBounds;
 	bool haveUpdated[2] = { false, false };
 

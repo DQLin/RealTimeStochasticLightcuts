@@ -29,7 +29,7 @@
 
 extern BoolVar m_EnableNodeViz;
 
-void VPLLightTreeBuilder::Init(ComputeContext& cptContext, int _numVPLs, std::vector<StructuredBuffer>& _VPLs, int _quantizationLevels, bool isReinit /*= false*/)
+void VPLLightTreeBuilder::Init(ComputeContext& cptContext, int _numVPLs, std::vector<StructuredBuffer>& _VPLs, int _quantizationLevels)
 {
 	VPLs = _VPLs;
 	numVPLs = _numVPLs;
@@ -63,7 +63,7 @@ void VPLLightTreeBuilder::Init(ComputeContext& cptContext, int _numVPLs, std::ve
 #endif
 	HelpUtils::InitBboxReductionBuffers(numTreeLights);
 
-	if (!isReinit)
+	if (isFirstTime)
 	{
 		RootSig.Reset(4);
 		RootSig[0].InitAsConstantBuffer(0);
@@ -81,6 +81,8 @@ void VPLLightTreeBuilder::Init(ComputeContext& cptContext, int _numVPLs, std::ve
 		CreatePSO(m_GenLevelZeroFromLightsPSO, g_pGenLevelZeroFromLightsCS);
 		HelpUtils::Init(&RootSig);
 	}
+
+	isFirstTime = false;
 }
 
 void VPLLightTreeBuilder::Build(ComputeContext & cptContext, bool sortLights, int frameId)

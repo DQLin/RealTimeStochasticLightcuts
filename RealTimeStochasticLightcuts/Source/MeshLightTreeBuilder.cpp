@@ -31,7 +31,7 @@
 
 BoolVar m_EnableNodeViz("Visualization/Enable Node Viz", false);
 
-void MeshLightTreeBuilder::Init(ComputeContext& cptContext, Model1* model, int numModels /*= 1*/, bool isReinit /*= false*/, bool oneLevelTree /*= false*/)
+void MeshLightTreeBuilder::Init(ComputeContext& cptContext, Model1* model, int numModels /*= 1*/, bool oneLevelTree /*= false*/)
 {
 	this->oneLevelTree = oneLevelTree;
 	m_Model = model;
@@ -404,7 +404,7 @@ void MeshLightTreeBuilder::Init(ComputeContext& cptContext, Model1* model, int n
 	}
 
 
-	if (!isReinit)
+	if (isFirstTime)
 	{
 		RootSig.Reset(4);
 		RootSig[0].InitAsConstantBuffer(0);

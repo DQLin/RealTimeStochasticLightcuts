@@ -41,7 +41,7 @@ void VPLManager::MergeBoundingSpheres(Vector4& base, Vector4 in)
 }
 
 
-void VPLManager::Initialize(Model1* _model, int _numModels, int _maxUpdateFrames /*= 1*/, int _maxRayRecursion /*= 30*/)
+void VPLManager::Initialize(Model1* _model, int _numModels, int _maxRayRecursion /*= 30*/)
 {
 	m_Models = _model;
 	numModels = _numModels;
@@ -86,9 +86,8 @@ void VPLManager::Initialize(Model1* _model, int _numModels, int _maxUpdateFrames
 
 	InitializeSceneInfo();
 	InitializeViews(*_model);
-	numFramesUpdated = -1;
+	needRegenerateVPLs = true;
 	maxRayRecursion = _maxRayRecursion;
-	maxUpdateFrames = _maxUpdateFrames;
 	BuildAccelerationStructures();
 	InitializeRaytracingRootSignatures();
 	InitializeRaytracingStateObjects();
@@ -748,12 +747,12 @@ void VPLManager::InitializeSceneInfo()
 		int sqrtDispatchDim = VPLEmissionLevel * 100;
 		if (lightIntensity != lastLightIntensity || lightDirection != lastLightDirection || hasRegenRequest)
 		{
-			if (numFramesUpdated != -1) numFramesUpdated = 0;
+			needRegenerateVPLs = true;
 			lastLightIntensity = lightIntensity;
 			lastLightDirection = lightDirection;
 		}
 
-		if (numFramesUpdated != maxUpdateFrames)
+		if (needRegenerateVPLs)
 		{
 			//ScopedTimer _p0(L"LightTracingShader", context);
 			// Prepare constants
@@ -761,7 +760,7 @@ void VPLManager::InitializeSceneInfo()
 			hitShaderConstants.sunDirection = -lightDirection;
 			hitShaderConstants.sunLight = Vector3(1.0, 1.0, 1.0)*lightIntensity;
 			hitShaderConstants.sceneSphere = sceneBoundingSphere;
-			hitShaderConstants.DispatchOffset = numFramesUpdated == -1 ? 0 : numFramesUpdated * sqrtDispatchDim / maxUpdateFrames;
+			hitShaderConstants.DispatchOffset = 0;
 			hitShaderConstants.maxDepth = maxDepth;
 			hitShaderConstants.frameId = frameId;
 			context.WriteBuffer(m_lightConstantBuffer, 0, &hitShaderConstants, sizeof(hitShaderConstants));
@@ -785,11 +784,7 @@ void VPLManager::InitializeSceneInfo()
 			pCommandList->SetComputeRootConstantBufferView(1, m_lightConstantBuffer.GetGpuVirtualAddress());
 			pCommandList->SetComputeRootDescriptorTable(3, m_VPLUavs);
 
-			if (numFramesUpdated == 0)
-			{
-				context.ResetCounter(VPLBuffers[POSITION], 0);
-				context.ResetCounter(VPLBuffers[NORMAL], 0);
-			}
+			context.ResetCounter(VPLBuffers[POSITION], 0);
 
 			D3D12_DISPATCH_RAYS_DESC dispatchRaysDesc = m_RaytracingInputs[LightTracing].GetDispatchRayDesc(sqrtDispatchDim, sqrtDispatchDim);
 
@@ -797,24 +792,17 @@ void VPLManager::InitializeSceneInfo()
 			m_dxrCommandList->SetPipelineState1(m_dxrStateObjects[LightTracing].Get());
 			m_dxrCommandList->DispatchRays(&dispatchRaysDesc);
 
-			if (numFramesUpdated == -1) numFramesUpdated = maxUpdateFrames;
-			else if (numFramesUpdated >= 0) numFramesUpdated++;
+			needRegenerateVPLs = false;
 
-			ReadbackBuffer readbackNumVplsBuffer, readbackNumPathsBuffer;
+			ReadbackBuffer readbackNumVplsBuffer;
 			readbackNumVplsBuffer.Create(L"ReadBackNumVplsBuffer", 1, sizeof(uint32_t));
-			readbackNumPathsBuffer.Create(L"ReadBackNumPathsBuffer", 1, sizeof(uint32_t));
 
 			context.CopyBuffer(readbackNumVplsBuffer, VPLBuffers[POSITION].GetCounterBuffer());
-			context.CopyBuffer(readbackNumPathsBuffer, VPLBuffers[NORMAL].GetCounterBuffer());
 			context.Flush(true);
-			uint32_t* tempNumVpls = (uint32_t*)readbackNumVplsBuffer.Map();
-			uint32_t* tempNumPaths = (uint32_t*)readbackNumPathsBuffer.Map();
-			numVPLs = numFramesUpdated == maxUpdateFrames ? *tempNumVpls : std::max(numVPLs, *tempNumVpls);
-			numPaths = numFramesUpdated == maxUpdateFrames ? *tempNumPaths : std::max(numPaths, *tempNumPaths);
+			numVPLs = *(uint32_t*)readbackNumVplsBuffer.Map();
+			numPaths = sqrtDispatchDim * sqrtDispatchDim;
 			//printf("numVPLs: %d  numPaths: %d\n", numVPLs, numPaths);
-
 			readbackNumVplsBuffer.Unmap();
-			readbackNumPathsBuffer.Unmap();
 
 			return true;
 		}

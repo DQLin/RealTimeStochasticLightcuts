@@ -16,7 +16,7 @@
   <height value="1080"/>
   <near value="1.0"/>
   <far value="10000"/>
-  <exposure value="4.0"/>
+  <exposure value="8.0"/>
   <movescale value="0.5"/>
   <panscale value="1.0"/>
   <animate value="true"/>  

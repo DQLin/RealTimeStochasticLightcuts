@@ -128,8 +128,6 @@ void Hit(inout RayPayload rayPayload, in BuiltInTriangleIntersectionAttributes a
 	rayPayload.color *= diffuseColor;
 	if (!isnan(normal.x) && !isnan(R.x) && any(rayPayload.color))
 	{
-		// count number of paths
-		if (rayPayload.recursionDepth == 0) g_vplNormals.IncrementCounter();
 		uint VPLid = g_vplPositions.IncrementCounter();
 		g_vplPositions[VPLid] = float4(worldPosition, 0.0);
 		g_vplNormals[VPLid] = float4(normal, 0.0);

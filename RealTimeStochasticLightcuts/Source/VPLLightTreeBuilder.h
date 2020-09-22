@@ -43,7 +43,7 @@ public:
 		return int(ceil(log2(numVPLs))) + 1;
 	}
 
-	void Init(ComputeContext& cptContext, int _numVPLs, std::vector<StructuredBuffer>& _VPLs, int _quantizationLevels, bool isReinit = false);
+	void Init(ComputeContext& cptContext, int _numVPLs, std::vector<StructuredBuffer>& _VPLs, int _quantizationLevels);
 
 	void Build(ComputeContext & cptContext, bool sortLights, int frameId);
 
@@ -99,6 +99,8 @@ public:
 #endif
 
 	ByteAddressBuffer ListCounter; // for bitonic sorting
+
+	bool isFirstTime = true;
 
 	int numVPLs;
 	int numTreeLights;

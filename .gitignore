@@ -1,0 +1,6 @@
+Core/x64
+Core/CompiledShaders
+RealTimeStochasticLightcuts/CompiledShaders
+RealTimeStochasticLightcuts/Intermediate
+RealTimeStochasticLightcuts/.vs
+*.pdb
