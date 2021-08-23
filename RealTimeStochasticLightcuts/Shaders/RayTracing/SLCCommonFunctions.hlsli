@@ -65,13 +65,21 @@ inline float errorFunction(int nodeID, int BLASId, float3 p, float3 N, float3 V,
 
 	float atten = rcp(dlen2);
 
-	atten *= GeomTermBound(p, N, node.boundMin, node.boundMax);
+	if (useApproximateCosineBound)
+		atten *= GeomTermBoundApproximate(p, N, node.boundMin, node.boundMax);
+	else
+		atten *= GeomTermBound(p, N, node.boundMin, node.boundMax);
+
 
 #ifdef LIGHT_CONE
 	{
 		float3 nr_boundMin = 2 * p - node.boundMax;
 		float3 nr_boundMax = 2 * p - node.boundMin;
-		float cos0 = GeomTermBound(p, node.cone.xyz, nr_boundMin, nr_boundMax);
+		float cos0 = 1;
+		if (useApproximateCosineBound)
+			cos0 = GeomTermBoundApproximate(p, node.cone.xyz, nr_boundMin, nr_boundMax);
+		else
+			cos0 = GeomTermBound(p, node.cone.xyz, nr_boundMin, nr_boundMax);
 		atten *= max(0.f, cos(max(0.f, acos(cos0) - node.cone.w)));
 	}
 #endif

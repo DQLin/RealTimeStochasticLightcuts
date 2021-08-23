@@ -40,17 +40,39 @@ bool firstChildWeight(float3 p, float3 N, float3 V, inout float prob0, int child
 	float3 c1_boundMax = c1.boundMax;
 
 	// Compute the weights
-	float geom0 = GeomTermBound(p, N, c0_boundMin, c0_boundMax);
-	float geom1 = GeomTermBound(p, N, c1_boundMin, c1_boundMax);
+	
+	float geom0 = 1;
+	float geom1 = 1;
+	if (useApproximateCosineBound)
+	{
+		geom0 = GeomTermBoundApproximate(p, N, c0_boundMin, c0_boundMax);
+		geom1 = GeomTermBoundApproximate(p, N, c1_boundMin, c1_boundMax);
+	}
+	else
+	{
+		geom0 = GeomTermBound(p, N, c0_boundMin, c0_boundMax);
+		geom1 = GeomTermBound(p, N, c1_boundMin, c1_boundMax);
+	}
+
 #ifdef LIGHT_CONE
 	float3 c0r_boundMin = 2 * p - c0_boundMax;
 	float3 c0r_boundMax = 2 * p - c0_boundMin;
 	float3 c1r_boundMin = 2 * p - c1_boundMax;
 	float3 c1r_boundMax = 2 * p - c1_boundMin;
 
-	float cos0 = GeomTermBound(p, c0.cone.xyz, c0r_boundMin, c0r_boundMax);
-	float cos1 = GeomTermBound(p, c1.cone.xyz, c1r_boundMin, c1r_boundMax);
+	float cos0 = 1;
+	float cos1 = 1;
 
+	if (useApproximateCosineBound)
+	{
+		cos0 = GeomTermBoundApproximate(p, c0.cone.xyz, c0r_boundMin, c0r_boundMax);
+		cos1 = GeomTermBoundApproximate(p, c1.cone.xyz, c1r_boundMin, c1r_boundMax);
+	}
+	else
+	{
+		cos0 = GeomTermBound(p, c0.cone.xyz, c0r_boundMin, c0r_boundMax);
+		cos1 = GeomTermBound(p, c1.cone.xyz, c1r_boundMin, c1r_boundMax);
+	}
 	geom0 *= max(0.f, cos(max(0.f, acos(cos0) - c0.cone.w)));
 	geom1 *= max(0.f, cos(max(0.f, acos(cos1) - c1.cone.w)));
 #endif

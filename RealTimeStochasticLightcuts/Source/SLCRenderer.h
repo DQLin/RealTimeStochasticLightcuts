@@ -59,6 +59,7 @@ public:
 		int distanceType;
 #endif
 		int gUseMeshLight;
+		int useApproximateCosineBound;
 	};
 
 	__declspec(align(16)) struct RayTraceReflectionConstants
@@ -104,6 +105,7 @@ public:
 	static EnumVar m_PresetVPLOrderOfMagnitude;
 	static NumVar m_VPLEmissionLevel;
 	static ExpVar m_ErrorLimit;
+	static BoolVar m_UseApproximateCosineBound;
 
 	static const char* interleaveRateOptionsText[3];
 	enum InterleaveRateOptions { NoInterleave = 1, Interleave2x2 = 2, Interleave4x4 = 4 };

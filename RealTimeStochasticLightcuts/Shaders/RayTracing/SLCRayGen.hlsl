@@ -53,6 +53,7 @@ cbuffer SLCConstants : register(b0)
 	int distanceType;
 #endif
 	int gUseMeshLight;
+	int useApproximateCosineBound;
 }
 
 cbuffer BoundConstants : register(b1)

@@ -453,17 +453,18 @@ public:
 	// Returns the absolute minimum distance to the box along the given direction
 	static float AbsMinDistAlong(glm::vec3 const &p, glm::vec3 const &dir, aabb const &box)
 	{
-		float prd = 1.f;
 		float dmin = dot(dir, (box.pos - p));
-		prd *= dmin;
+		bool hasPositive = false;
+		bool hasNegative = false;
 		dmin = abs(dmin);
 		for (int i = 1; i < 8; ++i) {
 			float d = dot(dir, (box[i] - p));
-			prd *= d;
+			hasPositive |= d > 0;
+			hasNegative |= d < 0;
 			d = abs(d);
 			if (dmin > d) dmin = d;
 		}
-		return prd < 0 ? 0.f : dmin;
+		return hasPositive && hasNegative ? 0.f : dmin;
 	}
 
 	// Geometry term bound (actually cosine term for the shaded point)

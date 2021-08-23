@@ -49,6 +49,8 @@ NumVar SLCRenderer::m_VPLEmissionLevel("VPL/Density", 3.9, 0.1, 40.0, 0.1);
 const char* SLCRenderer::interleaveRateOptionsText[3] = { "N/A", "2x2", "4x4" };
 EnumVar SLCRenderer::m_InterleaveRate("Stochastic Lightcuts/Interleave Rate", 0, 3, interleaveRateOptionsText);
 ExpVar SLCRenderer::m_ErrorLimit("Stochastic Lightcuts/Min Node Error Bound", 0.001f, -32.f, 32.f, 0.2f);
+BoolVar SLCRenderer::m_UseApproximateCosineBound("Stochastic Lightcuts/Use Approx Cosine Bound", true);
+
 NumVar SLCRenderer::m_ShadowBiasScale("Rendering/Shadow Offset", 0.001, 0.0001, 0.1, 0.0001);
 
 #ifdef EXPLORE_DISTANCE_TYPE
@@ -246,6 +248,7 @@ void SLCRenderer::SampleSLC(GraphicsContext & context, int frameId, int passId, 
 	const Vector3& viewerPos = viewConfig.m_Camera.GetPosition();
 	slcSamplingConstants.viewerPos = glm::vec3(viewerPos.GetX(), viewerPos.GetY(), viewerPos.GetZ());
 	slcSamplingConstants.errorLimit = m_ErrorLimit;
+	slcSamplingConstants.useApproximateCosineBound = m_UseApproximateCosineBound;
 	slcSamplingConstants.frameId = frameId;
 	slcSamplingConstants.sceneRadius = vplManager.sceneBoundingSphere.GetW();
 
@@ -662,6 +665,7 @@ void SLCRenderer::FindLightCuts(ComputeContext& cptContext, const ViewConfig& vi
 		float errorLimit;
 		float invNumPaths;
 		int gUseMeshLight;
+		int useApproximateCosineBound;
 	} csConstants;
 	
 	Vector3 cameraPos = viewConfig.m_Camera.GetPosition();
@@ -677,6 +681,7 @@ void SLCRenderer::FindLightCuts(ComputeContext& cptContext, const ViewConfig& vi
 	csConstants.pickType = m_lightSamplingPickType;
 	csConstants.frameId = frameId;
 	csConstants.errorLimit = m_ErrorLimit;
+	csConstants.useApproximateCosineBound = m_UseApproximateCosineBound;
 	csConstants.invNumPaths = 1.f / vplManager.numPaths;
 	csConstants.gUseMeshLight = gUseMeshLight;
 

@@ -35,6 +35,7 @@ cbuffer Constants : register(b0)
 	float errorLimit;
 	float invNumPaths;
 	int gUseMeshLight;
+	int useApproximateCosineBound;
 }
 
 cbuffer BoundConstants : register(b1)
